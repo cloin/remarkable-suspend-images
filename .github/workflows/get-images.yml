@@ -1,0 +1,27 @@
+name: Fetch Images
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Runs every 6 hours
+
+jobs:
+  fetch-images:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        script: [nytimes.sh]  # Add more script names here as you create them
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up ImageMagick
+      run: sudo apt-get install imagemagick -y
+
+    - name: Fetch Images
+      run: . get-images/${{ matrix.script }}
+
+    - name: Upload Images
+      uses: actions/upload-artifact@v2
+      with:
+        name: images
+        path: images/
