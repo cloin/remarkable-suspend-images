@@ -3,7 +3,7 @@ name: Fetch Images
 on:
   workflow_dispatch:
   # schedule:
-    # - cron: '0 */6 * * *'  # Runs every 6 hours
+  #   - cron: '0 */6 * * *'  # Runs every 6 hours
 
 jobs:
   fetch-images:
@@ -23,8 +23,10 @@ jobs:
     - name: Fetch Images
       run: . get-images/${{ matrix.script }}
 
-    - name: Upload Images
-      uses: actions/upload-artifact@v2
-      with:
-        name: images
-        path: images/
+    - name: Commit and Push Images
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add images/*
+        git commit -m "Update images"
+        git push
