@@ -7,7 +7,10 @@ export TODAY=$(date +%Y/%m/%d)
 mkdir -p images
 
 # Download the NYT front page PDF
+echo "https://static01.nyt.com/images/$TODAY/nytfrontpage/scan.pdf"
+
 curl -o images/nytimes.pdf "https://static01.nyt.com/images/$TODAY/nytfrontpage/scan.pdf"
+
 
 # Convert the first page of the PDF to PNG using pdftoppm
 pdftoppm -f 1 -l 1 -r 300 images/nytimes.pdf images/nytimes -png
