@@ -8,6 +8,8 @@ on:
 jobs:
   fetch-images:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # This line grants the GITHUB_TOKEN permission to push commits to the repository
     strategy:
       matrix:
         script: [nytimes.sh]  # Add more script names here as you create them
@@ -28,5 +30,5 @@ jobs:
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
         git add images/*
-        git commit -m "Update images"
+        git commit -m "Update images" || echo "No changes to commit"
         git push
