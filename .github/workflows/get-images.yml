@@ -2,17 +2,17 @@ name: Fetch Images
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '0 */6 * * *'  # Runs every 6 hours
+  schedule:
+    - cron: '0 7 * * *'  # every day 7am
 
 jobs:
   fetch-images:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # This line grants the GITHUB_TOKEN permission to push commits to the repository
+      contents: write
     strategy:
       matrix:
-        script: [nytimes.sh]  # Add more script names here as you create them
+        script: [nytimes.sh]
 
     steps:
     - uses: actions/checkout@v2
