@@ -23,7 +23,7 @@ jobs:
         sudo apt-get install imagemagick poppler-utils -y
 
     - name: Fetch Images
-      run: . generate-images/${{ matrix.script }}
+      run: . image-scripts/${{ matrix.script }}
 
     - name: Commit and Push Images
       run: |
