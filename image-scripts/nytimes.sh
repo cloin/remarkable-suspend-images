@@ -2,6 +2,7 @@
 
 # Set the date for today's NYT front page
 export TODAY=$(date +%Y/%m/%d)
+export SHORT_TODAY=$(date +%Y%m%d)
 
 # The directory where the PDF will be downloaded and the image will be saved
 mkdir -p images
@@ -18,6 +19,8 @@ pdftoppm -f 1 -l 1 -r 300 images/nytimes.pdf images/nytimes -png
 # Process the PNG image with ImageMagick to fit the reMarkable tablet's screen
 convert images/nytimes-1.png -trim +repage -chop 0x200 -resize "1364x1832^" -crop 1364x1832 -gravity center -extent 1404x1872 png:images/nytimes_converted.png
 
-mv images/nytimes_converted-0.png images/nytimes.png
+mv images/nytimes_converted-0.png images/nytimes_$SHORT_TODAY.png
+rm images/nytimes.png
+cp images/nytimes_$SHORT_TODAY.png images/nytimes.png
 # Clean up the downloaded PDF
 rm images/nytimes.pdf
